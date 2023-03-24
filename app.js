@@ -37,7 +37,7 @@ app.use(express.json());
 
 //home
 app.get("/", async (req, res) => {
-  const allPosts = await Post.find({});
+  const allPosts = await Post.find({}).sort("-dateCreated");
   res.render("index.ejs", { allPosts });
 });
 
@@ -60,6 +60,12 @@ app.post("/add", async (req, res) => {
   });
   await newPost.save();
   res.redirect("/");
+});
+
+//show post
+app.get("/posts/:id", async (req, res) => {
+  const post = await Post.findById(req.params.id);
+  res.render("post.ejs", { post });
 });
 
 //server listener

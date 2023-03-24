@@ -1,5 +1,5 @@
-<%- include('./partials/_header.ejs') %>
-  <%- include('./partials/_navigation.ejs') %>
+<%- include('partials/_header.ejs') %>
+  <%- include('partials/_navigation.ejs') %>
 
 
     <!-- Page Header -->
@@ -25,7 +25,7 @@
           <% for( let i of allPosts ) { %>
 
             <div class="post-preview">
-              <a href="#">
+              <a href="/posts/<%= i._id %>">
                 <h2 class="post-title">
                   <%= i.title %>
                 </h2>
@@ -110,4 +110,4 @@
 
     <hr>
 
-    <%- include('./partials/_footer.ejs') %>
+    <%- include('partials/_footer.ejs') %>
