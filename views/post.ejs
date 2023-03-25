@@ -1,5 +1,5 @@
 <%- include('partials/_header.ejs') %>
-<%- include('partials/_navigation.ejs') %>
+  <%- include('partials/_navigation.ejs') %>
 
     <!-- Page Header -->
     <header class="masthead" style="background-image: url('/img/post-bg.jpg')">
@@ -8,11 +8,20 @@
         <div class="row">
           <div class="col-lg-8 col-md-10 mx-auto">
             <div class="post-heading">
-              <h1><%= post.title %></h1>
-              <h2 class="subheading"><%= post.detail %></h2>
+              <h1>
+                <%= post.title %>
+              </h1>
+              <h2 class="subheading">
+                <%= post.detail %>
+              </h2>
               <span class="meta">Posted by
                 <a href="#">Start Bootstrap</a>
-                <%= post.dateCreated %></span>
+                <%= post.dateCreated %>
+              </span>
+              <div class="my-5">
+                <a class="btn btn-primary" href="/posts/<%= post._id %>/edit">Update</a>
+                <a class="btn btn-danger" href="/posts/<%= post._id %>?_method=delete">Delete</a>
+              </div>
             </div>
           </div>
         </div>

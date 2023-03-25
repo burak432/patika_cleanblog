@@ -1,3 +1,4 @@
+//express
 const express = require("express");
 const app = express();
 const path = require("path");
@@ -25,6 +26,14 @@ app.set("views", path.join(__dirname, "views"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+//method-override
+const methodOverride = require("method-override");
+app.use(methodOverride("_method", { methods: ["POST", "GET"] }));
+
+//mvc
+const postController = require("./controllers/postController");
+const pageController = require("./controllers/pageController");
+
 ////////////////////routes
 // app.get("/", (req, res) => {
 //   const blog = {
@@ -36,37 +45,28 @@ app.use(express.json());
 // });
 
 //home
-app.get("/", async (req, res) => {
-  const allPosts = await Post.find({}).sort("-dateCreated");
-  res.render("index.ejs", { allPosts });
-});
+app.get("/", postController.getAllPosts);
 
 //about
-app.get("/about", (req, res) => {
-  res.render("about.ejs");
-});
+app.get("/about", pageController.getAboutPage);
 
 //add new post
-app.get("/add", (req, res) => {
-  res.render("add_post.ejs");
-});
+app.get("/add", pageController.getAddNewPost);
 
 //add new post form handler
-app.post("/add", async (req, res) => {
-  const { title, detail } = req.body;
-  const newPost = Post({
-    title,
-    detail,
-  });
-  await newPost.save();
-  res.redirect("/");
-});
+app.post("/add", postController.postNewPost);
 
 //show post
-app.get("/posts/:id", async (req, res) => {
-  const post = await Post.findById(req.params.id);
-  res.render("post.ejs", { post });
-});
+app.get("/posts/:id", postController.showPost);
+
+//edit post form
+app.get("/posts/:id/edit", pageController.getEditPage);
+
+//edit post form handler
+app.put("/posts/:id", postController.updatePost);
+
+//delete post
+app.delete("/posts/:id", postController.deletePost);
 
 //server listener
 const port = 3000;
