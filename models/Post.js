@@ -1,6 +1,6 @@
 //mongoose
 const mongoose = require("mongoose");
-mongoose.connect("mongodb://127.0.0.1:27017/cleanblog-test-db");
+// mongoose.connect("mongodb://127.0.0.1:27017/cleanblog-test-db");
 
 const postSchema = new mongoose.Schema({
   title: String,

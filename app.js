@@ -5,7 +5,9 @@ const path = require("path");
 
 //mongoose
 const mongoose = require("mongoose");
-mongoose.connect("mongodb://127.0.0.1:27017/cleanblog-test-db");
+mongoose.connect(
+  "mongodb+srv://burak432:fw4URk52yuMki3QC@cluster0.frch3vu.mongodb.net/cleanblog-db?retryWrites=true&w=majority"
+);
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error:"));
 db.once("open", () => {
@@ -35,14 +37,6 @@ const postController = require("./controllers/postController");
 const pageController = require("./controllers/pageController");
 
 ////////////////////routes
-// app.get("/", (req, res) => {
-//   const blog = {
-//     id: 1,
-//     title: "Blog title",
-//     description: "Blog description",
-//   };
-//   res.json(blog);
-// });
 
 //home
 app.get("/", postController.getAllPosts);
@@ -69,7 +63,7 @@ app.put("/posts/:id", postController.updatePost);
 app.delete("/posts/:id", postController.deletePost);
 
 //server listener
-const port = 3000;
+const port = process.env.PORT || 3000;
 app.listen(port, () => {
   console.log(`server is up and running on port ${port}`);
 });
